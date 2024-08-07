@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike E-Commerce</title>
+    <link rel="stylesheet" href="body.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bike Shop</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Find Your Perfect Bike</h2>
+            <p>Explore our range of bikes and accessories</p>
+        </div>
+    </section>
+
+    <section id="shop" class="products">
+        <div class="container">
+            <h2>Our Bikes</h2>
+            <div class="product-list">
+                <div class="product-item">
+                    <img src="images/download.jpg" alt="Mountain Bike Image">
+                    <h3>Mountain Bike</h3>
+                    <p>$500</p>
+                    <button onclick="addToCart('Mountain Bike', 500)">Add to Cart</button>
+                </div>
+                <div class="product-item">
+                    <img src="images/download (1).jpg" alt="Mountain Bike Image">
+                    <h3>Mountain Bike</h3>
+                    <p>$500</p>
+                    <button onclick="addToCart('Mountain Bike', 500)">Add to Cart</button>
+                </div>
+                <!-- Add more products here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Bike Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Section -->
+    <div class="cart" id="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will appear here -->
+        </div>
+        <div class="cart-total" id="cart-total">
+            Total: $0
+        </div>
+    </div>
+
+    <script>
+        // Initialize cart array
+        let cart = [];
+
+        // Function to add items to cart
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        // Function to update the cart UI
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const cartTotalDiv = document.getElementById('cart-total');
+            cartItemsDiv.innerHTML = ''; // Clear existing items
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.className = 'cart-item';
+                cartItemDiv.innerHTML = `
+                    <span>${item.name} - $${item.price.toFixed(2)}</span>
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartItemsDiv.appendChild(cartItemDiv);
+            });
+
+            cartTotalDiv.innerHTML = `Total: $${total.toFixed(2)}`;
+        }
+
+        // Function to remove items from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+    </script>
+
+    <script src="jv.js"></script>
+</body>
+</html>
